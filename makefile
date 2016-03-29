@@ -1,14 +1,17 @@
-CC = g++
-override CFLAGS += -Wall -std=c++11
+CXX = g++
+override CXXFLAGS += -Wall -std=c++11
+
+debug: CXXFLAGS += -g
+debug: all
 
 all: main.o int24.o
-	$(CC) $(CFLAGS) main.o int24.o -o sicAsm
+	$(CXX) $(CXXFLAGS) main.o int24.o -o sicAsm
 
 main.o: int24.o
-	$(CC) $(CFLAGS) -c src/main.cpp -o main.o
+	$(CXX) $(CXXFLAGS) -c src/main.cpp -o main.o
 
 int24.o:
-	$(CC) $(CFLAGS) -c src/int24.cpp -o int24.o
+	$(CXX) $(CXXFLAGS) -c src/int24.cpp -o int24.o
 
 clean:
 	rm *.o sicAsm
