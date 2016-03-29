@@ -1,0 +1,3 @@
+STA #LEL
+LEL WORD 12
+END

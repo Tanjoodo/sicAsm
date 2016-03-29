@@ -1,0 +1,4 @@
+label1 STA 0
+label2 STF 1337
+label1 STB 1
+END
