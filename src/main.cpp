@@ -90,7 +90,7 @@ int main(int argc, char ** argv)
 					<<  ": duplicate symbol definition: \""
 				   	<< lines[i].label.value 
 					<< "\". First defined on line "
-					<< symbol_table[lines[i].label.value].line_found << std::endl;
+					<< offending_symbol.line_found << std::endl;
 				return 2;
 			} else {
 				symbol_table[lines[i].label.value] = symbol(location_counter, i + 1);
@@ -223,7 +223,7 @@ int main(int argc, char ** argv)
 				if (instructions[pass2_lines[i].opcode.value].format == 1) {
 					current_operands = 0;
 				} else if (instructions[pass2_lines[i].opcode.value].format == 2) {
-					int loc = raw_operand.find(',');
+					unsigned int loc = raw_operand.find(',');
 
 					int r1 = 0, r2 = 0;
 					if (loc == std::string::npos) { // just one register
@@ -393,7 +393,7 @@ std::vector<line> parse_file(char * path)
 	std::vector<std::string> lines = read_file_into_lines(path);
 	std::vector<line> result;
 
-	for (int i = 0; i < lines.size(); ++i) {
+	for (unsigned int i = 0; i < lines.size(); ++i) {
 		if (lines[i][0] != '.') { // ignore comments. Comments start with a . and take the whole line.
 			std::vector<std::string> split_string = split_line(lines[i]);
 			if (split_string.size() == 1) {
