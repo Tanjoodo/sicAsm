@@ -31,6 +31,7 @@ struct symbol
 		this->line_found = line_found;
 	}
 };
+
 std::map<std::string, instruction> instructions;
 std::map<std::string, int> registers;
 
