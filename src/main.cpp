@@ -54,6 +54,19 @@ inline bool is_integer(const std::string & s) { // http://stackoverflow.com/a/28
    return (*p == 0);
 }
 
+struct macro_definition {
+	line prototype;
+	std::vector<line> body;
+
+	macro_definition(line prototype, std::vector<line> body) {
+		this->prototype = prototype;
+		this->body = body;
+	}
+}
+
+
+std::map<std::string, macro_definition> macros;
+std::vector<std::string> argtab;
 int main(int argc, char ** argv)
 {
 	if (argc < 2)
@@ -67,8 +80,7 @@ int main(int argc, char ** argv)
 	std::vector<line> lines = parse_file(argv[1]);
 	std::vector<pass2_line> pass2_lines;
 	int location_counter = 0;
-	int starting_address = 0;
-	int program_length = 0;
+	int starting_address = 0; int program_length = 0;
 	int prev_location_counter = location_counter;
 
 	if (lines[0].opcode.value == "START") {
@@ -78,6 +90,10 @@ int main(int argc, char ** argv)
 	}
 
 	int i = 0;
+	while (lines[i].opcode.value != "END") {
+		++i;
+	}
+	i = 0;
 	std::map<std::string, symbol> symbol_table;
 
 	while (lines[i].opcode.value != "END") {
